@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="Res/logo-co-script-solo.png" type="image/x-icon">
+<title>Co-Script | Moteur de recherche de code</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(32, 33, 36);
+  }
+  .container {
+    margin: 0 auto;
+    padding: 5px;
+  }
+  .search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: rgb(32, 33, 36);
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(59, 59, 59);
+    z-index: 999; /* Assurez-vous que la barre reste au-dessus du contenu */
+  }
+  .search-form {
+    margin-left: 0px;
+    display: flex;
+    align-items: center;
+  }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+  }
+  .search-results {
+    margin-top: 80px; /* Ajout de marge en haut pour compenser la barre fixée */
+  }
+  .code-item {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .code-item h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: rgb(60, 93, 155);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .code-items-container {
+  background-color: rgb(36, 36, 39);
+  padding: 20px;
+  margin-left: 100px;
+  border-radius: 20px;
+  width: 45%;
+  }
+  .code-item p {
+    color: gray;
+    margin-top: 10px;
+    max-width: 400px;
+  }
+  #searchInput {
+    border-radius: 50px;
+    background-color: rgb(48, 49, 52);
+    border: none;
+    color: gray;
+    width: 35%;
+  }
+  #results {
+    color: rgb(190, 190, 190);
+  }
+  .result-count {
+    color: rgb(167, 167, 167);
+    font-size: 14px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  .pagination {
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .pagination button {
+    background-color: rgb(48, 49, 52);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .pagination button:hover {
+    background-color: rgb(60, 61, 64);
+  }
+  #imaglogo {
+      max-width: 150px; 
+      margin-right: 75px;
+    }
+  .search-info-box {
+    background-color: rgb(36, 36, 39);
+  padding: 20px;
+  margin-left: 100px;
+  border-radius: 20px;
+  width: 45%;
+  margin-bottom: 30px;
+  }
+  #imagediv {
+    max-width: 100px; max-height: 100px; min-width: 90px; min-height: 90px;padding: 20px; background-color: rgba(211, 211, 211, 0.562); border-radius: 10px; display: flex; justify-content: center; align-items: center;
+  }
+  /* Styles spécifiques pour les appareils mobiles */
+  @media only screen and (max-width: 600px) {
+    #imagediv {
+    max-width: 50px; max-height: 50px; min-width: 40px; min-height: 40px;padding: 20px; background-color: rgba(211, 211, 211, 0.562); border-radius: 10px; display: flex; justify-content: center; align-items: center;
+    } 
+    .result-count {
+      margin-left: 20px;
+    }
+    .search-form {
+      margin-right: 0;
+    }
+    .search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: rgb(32, 33, 36);
+    padding: 0px;
+    border-bottom: 1px solid rgb(59, 59, 59);
+    z-index: 999; /* Assurez-vous que la barre reste au-dessus du contenu */
+    }
+    .search-info-box {
+      background-color: rgb(36, 36, 39);
+      padding: 20px;
+      margin-left: 20px;
+      border-radius: 20px;
+      width: auto;
+      margin-right: 20px;
+  margin-bottom: 30px;
+  }
+    .code-items-container {
+      background-color: rgb(36, 36, 39);
+      padding: 20px;
+      margin-left: 20px;
+      border-radius: 20px;
+      width: auto;
+      margin-right: 20px;
+    }
+    #searchInput {
+    border-radius: 50px;
+    background-color: rgb(48, 49, 52);
+    border: none;
+    color: gray;
+    width: auto;
+    height: auto;
+    margin-right: 10px;
+    }
+    .code-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    }
+    #imaglogo {
+      margin-right: 30px;
+      margin-top: 5px;
+      margin-left: 10px;
+      width: 60px;
+      height: auto;
+    }
+    input[type="text"] {
+      width: 100%;
+    }
+    button {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="search-container">
+  <div class="container">
+    <div class="search-form">
+        <img id="imaglogo" src="Res/logo-co-script.png" alt="Logo">
+      <input type="text" id="searchInput" placeholder="Entrez votre recherche...">
+      <button onclick="startSearch()" style="margin-left: -50px; background-color: transparent;border: none;margin-top: 3px;"><img src="Res/magnifier.png" alt="Logo" style="width: 25px;"></button>
+    </div>
+    
+  </div>
+</div>
+<div class="container">
+  <div class="search-results" id="results"></div>
+</div>
+<script src="database_coscript/code/list.js"></script>
+<script src="database_coscript/info/serachcodeinfo.js"></script>
+<script>
+  if (window.matchMedia("(max-width: 600px)").matches) {
+  document.getElementById("imaglogo").src = "Res/logo-co-script-solo.png";
+}
+function startSearch() {
+  const searchInput = document.getElementById('searchInput').value.trim();
+  if (searchInput !== '') {
+    const newUrl = window.location.origin + window.location.pathname + '?search=' + encodeURIComponent(searchInput);
+    window.history.pushState({path: newUrl}, '', newUrl);
+    scrollToTop();
+    showSearchResults(searchInput);
+  }
+}
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+function addSearchInfoBox(title) {
+  const info = searchCodeInfoByTitle(title);
+  if (info) {
+    const infoBox = document.createElement('div');
+    infoBox.classList.add('search-info-box');
+    infoBox.innerHTML = `
+    <div id="topdiv" style="display: flex; align-items: flex-start; justify-content: space-between;">
+  <div id="textdiv">
+    <h2 style="margin-top: 0;">${info.title}</h2>
+    <p><b>Catégorie :</b> ${info.categorie}</p>
+    <p><b>Site web :</b> <a href="${info.website}">${info.website}</a></p>
+    <p style="max-width: 70%; text-align: justify;"><b>Description :</b> ${info.description} <a href="${info.source}">${info.sourcename}</a></p>
+  </div>
+  <div id="imagediv">
+    <img id="imagelanguage" style="max-width: 90%; max-height: 90%;" src="${info.image}" alt="Logo">
+  </div>
+</div>
+    `;
+    return infoBox;
+  } else {
+    return null;
+  }
+}
+
+function searchCodeInfoByTitle(title) {
+  const foundInfo = jsonDataGen.find(item => item.title.toLowerCase() === title.toLowerCase());
+  return foundInfo;
+}
+
+function showSearchResults(query, page = 1, resultsPerPage = 20) {
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = '';
+
+  const filteredResults = jsonData.filter(code => {
+    const title = code.title.toLowerCase();
+    const description = code.description.toLowerCase();
+    return title.includes(query.toLowerCase()) || description.includes(query.toLowerCase());
+  });
+  
+  const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
+  const startIndex = (page - 1) * resultsPerPage;
+  const endIndex = startIndex + resultsPerPage;
+  const resultsToShow = filteredResults.slice(startIndex, endIndex);
+
+  if (resultsToShow.length === 0) {
+    resultsContainer.innerHTML = 'Aucun résultat trouvé.';
+    return;
+  }
+
+  const resultCountText = document.createElement('div');
+  resultCountText.classList.add('result-count');
+  resultCountText.textContent = `Nombre de résultats : ${filteredResults.length}`;
+  resultsContainer.appendChild(resultCountText);
+  const searchInfoBox = addSearchInfoBox(query);
+  if (searchInfoBox) {
+    resultsContainer.appendChild(searchInfoBox);
+  }
+  const codeItemsContainer = document.createElement('div');
+  codeItemsContainer.classList.add('code-items-container');
+
+  resultsToShow.forEach(code => {
+    const codeItem = document.createElement('div');
+    codeItem.classList.add('code-item');
+    
+    const title = document.createElement('h3');
+    title.textContent = code.title;
+    title.addEventListener('click', function() {
+      codeBlock.style.display = codeBlock.style.display === 'none' ? 'block' : 'none';
+    });
+    
+    const description = document.createElement('p');
+    description.textContent = code.description;
+    
+    const codeBlock = document.createElement('pre');
+    codeBlock.innerHTML = `<code>${code.code}</code>`;
+    codeBlock.style.display = 'none';
+    
+    codeItem.appendChild(title);
+    codeItem.appendChild(description);
+    codeItem.appendChild(codeBlock);
+    
+    codeItemsContainer.appendChild(codeItem);
+  });
+  resultsContainer.appendChild(codeItemsContainer);
+
+  // Ajout des boutons de pagination si nécessaire
+  if (totalPages > 1) {
+    const paginationContainer = document.createElement('div');
+    paginationContainer.classList.add('pagination');
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.addEventListener('click', function() {
+        showSearchResults(query, i, resultsPerPage);
+        scrollToTop();
+      });
+      paginationContainer.appendChild(pageButton);
+    }
+
+    resultsContainer.appendChild(paginationContainer);
+  }
+}
+
+window.onload = function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchQuery = urlParams.get('search');
+  if (searchQuery) {
+    document.getElementById('searchInput').value = decodeURIComponent(searchQuery);
+    startSearch();
+  }
+};
+</script>
+</body>
+</html>

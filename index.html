@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="Res/logo-co-script-solo.png" type="image/x-icon">
+<title>Co-Script | Moteur de recherche de code</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(32, 33, 36);
+  }
+  .container {
+    margin: 0 auto;
+    padding: 5px;
+    margin-left: 10px;
+  }
+  .search-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: rgb(32, 33, 36);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 999; /* Assurez-vous que la barre reste au-dessus du contenu */
+  }
+  .search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 50px;
+    border: none;
+    width: 70%;
+    max-width: 400px;
+  }
+  button {
+    background-color: rgb(48, 49, 52);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: rgb(60, 61, 64);
+  }
+  img#logo {
+    max-width: 75%;
+    margin: 0 auto;
+    display: block;
+  }
+  #searchInput {
+    width: 100%;
+    background-color: rgb(60, 61, 64);
+    
+  }
+  .footer {
+  background-color: rgb(32, 33, 36);
+  color: white;
+  text-align: center;
+  padding: 0;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  z-index: 999;
+}
+
+.footer a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 600px) {
+  .footer {
+    background-color: rgb(32, 33, 36);
+    color: white;
+    text-align: center;
+    position: fixed;
+    font-size: small;
+    bottom: 10px;
+    width: 100%;
+    z-index: 999;
+    display: flex; /* Utiliser flexbox pour aligner les éléments */
+    align-items: center; /* Aligner verticalement le contenu au centre */
+    justify-content: center; /* Aligner horizontalement le contenu au centre */
+  }
+}
+</style>
+</head>
+<body>
+<div class="search-container">
+  <div class="container">
+    <img id="logo" src="Res/logo-co-script.png" alt="Logo">
+    <div class="search-form">
+        <input type="text" id="searchInput" placeholder="Entrez votre recherche...">
+        <button onclick="startSearch()" style="margin-left: -55px; background-color: transparent;border: none;margin-top: 3px;"><img src="Res/magnifier.png" alt="Logo" style="width: 25px;"></button>
+    </div>
+  </div>
+</div>
+<!-- Barre en bas avec des liens -->
+<div class="footer">
+    <a href="https://live-prism.web.app">À propos</a>
+    <a href="https://live-prism.web.app/cgu.html">Conditions d'utilisation</a>
+    <a onclick="registerAsDefaultBrowser()">Définir par défaut</a>
+  </div>
+  <script>
+    //---------------------------------------------------------recherche------------------------------------------------
+    // Récupérer l'élément input
+const searchInput = document.getElementById('searchInput');
+
+// Écouter l'événement keypress sur l'élément input
+searchInput.addEventListener('keypress', function(event) {
+  // Vérifier si la touche appuyée est la touche "Entrée"
+  if (event.key === 'Enter') {
+    // Appeler la fonction startSearch() si la touche "Entrée" est pressée
+    startSearch();
+  }
+});
+    function startSearch() {
+  const searchInput = document.getElementById('searchInput').value.trim();
+  if (searchInput !== '') {
+    const searchUrl = `search.html?search=${encodeURIComponent(searchInput)}`;
+    window.location.href = searchUrl;
+  }
+}
+    //-------------------------------------------------------------nav-par-default-----------------------------------------------
+    function registerAsDefaultBrowser() {
+  if (navigator.registerProtocolHandler) {
+    try {
+        navigator.registerProtocolHandler(
+  "web+cocript",
+  "https://web-coscript.web.app/search.html?search=%s",
+  "Co-script",
+);
+
+      console.log('Enregistrement comme navigateur par défaut réussi.');
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement comme navigateur par défaut:', error);
+    }
+  } else {
+    console.error('La fonction navigator.registerProtocolHandler n\'est pas prise en charge dans ce navigateur.');
+  }
+}
+  </script>
+</body>
+</html>
