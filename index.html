@@ -22,7 +22,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     background-color: rgb(32, 33, 36);
     padding: 20px;
@@ -39,10 +39,10 @@
   input[type="text"] {
     padding: 10px;
     font-size: 16px;
-    border-radius: 50px;
+    border-radius: 15px;
     border: none;
     width: 70%;
-    max-width: 400px;
+    max-width: 800px;
   }
   button {
     background-color: rgb(48, 49, 52);
@@ -64,7 +64,7 @@
   #searchInput {
     width: 100%;
     background-color: rgb(60, 61, 64);
-    
+    height: 25px;
   }
   .footer {
   background-color: rgb(32, 33, 36);
@@ -86,7 +86,118 @@
 .footer a:hover {
   text-decoration: underline;
 }
+#menulogo {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+#our-app {
+  position: fixed;
+  top: 75px;
+  right: 30px;
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
+  background-color: rgb(100, 100, 100);
+  display: none;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+    z-index: 99999;
+}
+/* Style pour chaque application */
+.app {
+    text-align: center;
+    max-width: 90px;
+    max-height: 90px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 7px;
+    background-color: rgb(146, 146, 146);
+  }
+  /* Style pour le logo de l'application */
+  .app img {
+    margin-top: 5px;
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+
+  /* Style pour le nom de l'application */
+  .app p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  .icon {
+  width: 20px; /* Ajustez la taille de l'icône selon vos besoins */
+  height: 20px;
+  margin-top: 5px;
+  margin-right: 10px; /* Espacement entre l'icône et le texte */
+  margin-bottom: 5px;
+}
+
+/* Style pour l'option de recherche */
+.search-option {
+  padding: 5px; /* Ajoutez un peu d'espacement autour de chaque option */
+  cursor: pointer; /* Changez le curseur au survol pour indiquer que c'est cliquable */
+  display: flex; /* Utilisation de flexbox */
+  align-items: center; /* Alignement vertical des éléments */
+}
+
+/* Style pour le survol de l'option de recherche */
+.search-option:hover {
+  background-color: #f0f0f0; /* Changez la couleur de fond au survol */
+}
+#searchDropdown {
+  position: absolute;
+  top: 80%; /* Positionne le menu déroulant en dessous de la barre de recherche */
+  margin-top: 10px;
+  left: 40px;
+  right: 40px;
+  width: auto; /* Assurez-vous que la largeur correspond à celle de la barre de recherche */
+  background-color: rgb(83, 83, 83);
+  border: 1px solid #363636;
+  border-top: none; /* Supprime la bordure supérieure pour fusionner avec la barre de recherche */
+  border-radius: 5px; /* Ajoute un arrondi au bas du menu déroulant */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre légère */
+  display: none; /* Masque le menu déroulant par défaut */
+  z-index: 1000; /* Assurez-vous que le menu déroulant est au-dessus de tout le reste */
+  padding: 5px 0; /* Ajoute un peu de rembourrage pour un meilleur aspect */
+}
+
+#searchDropdown div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#searchDropdown div:hover {
+  background-color: #777777;
+}
+#datamessage {
+  position: fixed;
+  bottom: 10px;
+  
+}
 @media only screen and (max-width: 600px) {
+  .search-container {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    background-color: rgb(32, 33, 36);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 999; /* Assurez-vous que la barre reste au-dessus du contenu */
+  }
+  input[type="text"] {
+    max-width: 600px;
+  }
   .footer {
     background-color: rgb(32, 33, 36);
     color: white;
@@ -99,19 +210,45 @@
     display: flex; /* Utiliser flexbox pour aligner les éléments */
     align-items: center; /* Aligner verticalement le contenu au centre */
     justify-content: center; /* Aligner horizontalement le contenu au centre */
+    
   }
+  #menulogo {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
 }
 </style>
 </head>
 <body>
+<img id="menulogo" src="Res/menu.png" alt="Logo">
+<div id="our-app" style="display: none;">
+  <div id="bloctextlogo" class="app" onclick="redirectToBlocText()">
+    <img src="https://live-prism.web.app/Res/fichier%20(2).png" alt="Logo de l'application 1">
+    <p>BlocText</p>
+  </div>
+  <div id="deskcodelogo" class="app" onclick="redirectToDeskCode()">
+    <img src="https://live-prism.web.app/Res/fichier%20(4).png" alt="Logo DeskCode">
+    <p>DeskCode</p>
+  </div>
+</div>
 <div class="search-container">
   <div class="container">
     <img id="logo" src="Res/logo-co-script.png" alt="Logo">
     <div class="search-form">
-        <input type="text" id="searchInput" placeholder="Entrez votre recherche...">
-        <button onclick="startSearch()" style="margin-left: -55px; background-color: transparent;border: none;margin-top: 3px;"><img src="Res/magnifier.png" alt="Logo" style="width: 25px;"></button>
+        <input type="text" id="searchInput" autocomplete="off" placeholder="Recherchez du code...">
+        <button onclick="startSearch()" style="margin-left: -60px; background-color: transparent;border: none;margin-top: 3px;"><img src="Res/magnifier.png" alt="Logo" style="width: 25px;"></button>
+        <div id="searchDropdown" class="dropdown-content">
+          <!-- Les termes de recherche correspondants seront ajoutés ici -->
+        </div>
     </div>
   </div>
+</div>
+<div id="datamessage">
+  <!-- Les termes de recherche correspondants seront ajoutés ici -->
 </div>
 <!-- Barre en bas avec des liens -->
 <div class="footer">
@@ -119,7 +256,23 @@
     <a href="https://live-prism.web.app/cgu.html">Conditions d'utilisation</a>
     <a onclick="registerAsDefaultBrowser()">Définir par défaut</a>
   </div>
+  <script src="database_coscript/info/dicoword.js"></script>
   <script>
+    function redirectToBlocText() {
+  window.location.href = 'https://live-prism.web.app/BlocText.html';
+}
+function redirectToDeskCode() {
+  window.location.href = 'https://live-prism.web.app/DeskCode.html';
+}
+    document.getElementById('menulogo').addEventListener('click', function() {
+  var ourApp = document.getElementById('our-app');
+  if (ourApp.style.display === 'none') {
+    ourApp.style.display = 'grid'; // Afficher le menu
+  } else {
+    ourApp.style.display = 'none'; // Cacher le menu
+  }
+});
+
     //---------------------------------------------------------recherche------------------------------------------------
     // Récupérer l'élément input
 const searchInput = document.getElementById('searchInput');
@@ -157,6 +310,82 @@ searchInput.addEventListener('keypress', function(event) {
     console.error('La fonction navigator.registerProtocolHandler n\'est pas prise en charge dans ce navigateur.');
   }
 }
+//------------------------------------------------------------------barre------------------
+const searchDropdown = document.getElementById('searchDropdown');
+let recentSearchTerms = JSON.parse(localStorage.getItem('recentSearchTerms')) || [];
+// Événement lorsqu'on modifie le contenu de la barre de recherche
+searchInput.addEventListener('input', function() {
+  showDropdown();
+});
+
+// Événement lorsqu'on clique en dehors de la barre de recherche
+document.addEventListener('click', function(event) {
+  if (!searchInput.contains(event.target)) {
+    hideDropdown();
+  }
+});
+
+function showDropdown() {
+  const searchText = searchInput.value.trim().toLowerCase();
+  searchDropdown.innerHTML = '';
+
+  // Affichage des termes récents
+  recentSearchTerms.filter(term => term.toLowerCase().includes(searchText)).slice(0, 3).forEach(term => {
+    const option = createOptionElement(term, 'recent.png');
+    option.addEventListener('click', function() {
+      searchInput.value = term;
+      hideDropdown();
+    });
+    searchDropdown.appendChild(option);
+  });
+
+  // Affichage des suggestions par défaut
+  searchTerms.filter(term => term.toLowerCase().includes(searchText)).slice(0, 4).forEach(term => {
+    const option = createOptionElement(term, 'loupe.png');
+    option.addEventListener('click', function() {
+      searchInput.value = term;
+      hideDropdown();
+    });
+    searchDropdown.appendChild(option);
+  });
+
+  if (searchDropdown.children.length === 0) {
+    hideDropdown()
+  }
+
+  searchDropdown.style.display = 'block';
+}
+
+function createOptionElement(term, icon) {
+  const option = document.createElement('div');
+  option.classList.add('search-option');
+  option.innerHTML = `<img src="Res/${icon}" class="icon" alt="Icon">${term}`;
+  return option;
+}
+
+function hideDropdown() {
+  searchDropdown.innerHTML = '';
+  searchDropdown.style.display = 'none';
+}
+function addRecentSearch(term) {
+  const recentSearches = JSON.parse(localStorage.getItem('recentSearchTerms')) || [];
+  // Vérifie si le terme est déjà présent dans les recherches récentes
+  if (!recentSearches.includes(term)) {
+    recentSearches.unshift(term); // Ajoute le terme en haut de la liste pour qu'il soit le plus récent
+    // Limite le nombre de termes récents à 100
+    if (recentSearches.length > 100) {
+      recentSearches.pop(); // Retire le terme le plus ancien s'il y en a plus de 100
+    }
+    localStorage.setItem('recentSearchTerms', JSON.stringify(recentSearches));
+  }
+}
+searchDropdown.addEventListener('click', function(event) {
+  const clickedTerm = event.target.textContent;
+  searchInput.value = clickedTerm; // Remplace le texte dans la barre de recherche par le terme cliqué
+  hideDropdown();
+  startSearch(); // Lance la recherche
+});
+//------------------------------------------------------------------------------------------
   </script>
 </body>
 </html>

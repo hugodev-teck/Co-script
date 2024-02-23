@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -50,6 +51,13 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  .code-item a {
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(95, 95, 95);
+  }
   .code-items-container {
   background-color: rgb(36, 36, 39);
   padding: 20px;
@@ -61,6 +69,35 @@
     color: gray;
     margin-top: 10px;
     max-width: 400px;
+  }
+  .code-item pre {
+    background-color: rgb(49, 49, 49);
+    color: gray;
+    padding: 5px;
+    overflow: scroll;
+  }
+  .code-item pre::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    color: transparent;
+  }
+  .code-item pre::-webkit-scrollbar {
+    width: 0px;
+  }
+  .code-item pre::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 5px;
+  }
+  .code-item pre::-webkit-scrollbar-track {
+      background-color: transparent;
+  }
+  .code-item button {
+    width: auto;
+    height: auto;
+    background-color: rgba(138, 138, 138, 0.623);
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(65, 64, 64);
+    margin-right: 10px;
   }
   #searchInput {
     border-radius: 50px;
@@ -107,13 +144,91 @@
   width: 45%;
   margin-bottom: 30px;
   }
+  
   #imagediv {
     max-width: 100px; max-height: 100px; min-width: 90px; min-height: 90px;padding: 20px; background-color: rgba(211, 211, 211, 0.562); border-radius: 10px; display: flex; justify-content: center; align-items: center;
   }
+  .search-form {
+  position: relative; /* Assurez-vous que la position est relative */
+  margin-left: 0px;
+  display: flex;
+  align-items: center;
+}
+
+#searchDropdown {
+  position: absolute;
+  top: 100%; /* Positionne le menu déroulant en dessous de la barre de recherche */
+  margin-top: 10px;
+  left: 233px;
+  width: 35%; /* Assurez-vous que la largeur correspond à celle de la barre de recherche */
+  background-color: rgb(83, 83, 83);
+  border: 1px solid #363636;
+  border-top: none; /* Supprime la bordure supérieure pour fusionner avec la barre de recherche */
+  border-radius: 5px; /* Ajoute un arrondi au bas du menu déroulant */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre légère */
+  display: none; /* Masque le menu déroulant par défaut */
+  z-index: 1000; /* Assurez-vous que le menu déroulant est au-dessus de tout le reste */
+  padding: 5px 0; /* Ajoute un peu de rembourrage pour un meilleur aspect */
+}
+
+#searchDropdown div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#searchDropdown div:hover {
+  background-color: #777777;
+}
   /* Styles spécifiques pour les appareils mobiles */
   @media only screen and (max-width: 600px) {
+    .service-item {
+      width: 90px;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    #searchDropdown {
+  position: absolute;
+  top: 100%; /* Positionne le menu déroulant en dessous de la barre de recherche */
+  margin-top: 3px;
+  left: 100px;
+  width: 255px; /* Assurez-vous que la largeur correspond à celle de la barre de recherche */
+  background-color: rgb(83, 83, 83);
+  border: 1px solid #363636;
+  border-top: none; /* Supprime la bordure supérieure pour fusionner avec la barre de recherche */
+  border-radius: 5px; /* Ajoute un arrondi au bas du menu déroulant */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre légère */
+  display: none; /* Masque le menu déroulant par défaut */
+  z-index: 1000; /* Assurez-vous que le menu déroulant est au-dessus de tout le reste */
+  padding: 5px 0; /* Ajoute un peu de rembourrage pour un meilleur aspect */
+}
+
+#searchDropdown div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#searchDropdown div:hover {
+  background-color: #777777;
+}
     #imagediv {
-    max-width: 50px; max-height: 50px; min-width: 40px; min-height: 40px;padding: 20px; background-color: rgba(211, 211, 211, 0.562); border-radius: 10px; display: flex; justify-content: center; align-items: center;
+      max-width: 50px; 
+      max-height: 50px; 
+      min-width: 40px; 
+      min-height: 40px;
+      padding: 20px; 
+      background-color: rgba(211, 211, 211, 0.562); 
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+       align-items: center;
     } 
     .result-count {
       margin-left: 20px;
@@ -154,7 +269,7 @@
     background-color: rgb(48, 49, 52);
     border: none;
     color: gray;
-    width: auto;
+    width: 240px;
     height: auto;
     margin-right: 10px;
     }
@@ -177,15 +292,47 @@
       margin-top: 10px;
     }
   }
+  .no-results {
+    font-weight: bold;
+    color: rgb(231, 231, 231);
+    margin-left: 20px;
+}
+
+.suggestions {
+    margin-left: 20px;
+}
+.icon {
+  width: 20px; /* Ajustez la taille de l'icône selon vos besoins */
+  height: 20px;
+  margin-top: 5px;
+  margin-right: 10px; /* Espacement entre l'icône et le texte */
+  margin-bottom: 5px;
+}
+
+/* Style pour l'option de recherche */
+.search-option {
+  padding: 5px; /* Ajoutez un peu d'espacement autour de chaque option */
+  cursor: pointer; /* Changez le curseur au survol pour indiquer que c'est cliquable */
+  display: flex; /* Utilisation de flexbox */
+  align-items: center; /* Alignement vertical des éléments */
+}
+
+/* Style pour le survol de l'option de recherche */
+.search-option:hover {
+  background-color: #f0f0f0; /* Changez la couleur de fond au survol */
+}
 </style>
 </head>
 <body>
 <div class="search-container">
   <div class="container">
     <div class="search-form">
-        <img id="imaglogo" src="Res/logo-co-script.png" alt="Logo">
-      <input type="text" id="searchInput" placeholder="Entrez votre recherche...">
+        <img id="imaglogo" src="Res/logo-co-script.png" style="cursor: pointer;" onclick="redirectToService('https://web-coscript.web.app/')" alt="Logo">
+      <input type="text" id="searchInput" autocomplete="off" placeholder="Entrez votre recherche...">
       <button onclick="startSearch()" style="margin-left: -50px; background-color: transparent;border: none;margin-top: 3px;"><img src="Res/magnifier.png" alt="Logo" style="width: 25px;"></button>
+      <div id="searchDropdown" class="dropdown-content">
+        <!-- Les termes de recherche correspondants seront ajoutés ici -->
+      </div>
     </div>
     
   </div>
@@ -195,7 +342,87 @@
 </div>
 <script src="database_coscript/code/list.js"></script>
 <script src="database_coscript/info/serachcodeinfo.js"></script>
+<script src="database_coscript/info/dicoword.js"></script>
 <script>
+const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+let recentSearchTerms = JSON.parse(localStorage.getItem('recentSearchTerms')) || [];
+// Événement lorsqu'on modifie le contenu de la barre de recherche
+searchInput.addEventListener('input', function() {
+  showDropdown();
+});
+
+// Événement lorsqu'on clique en dehors de la barre de recherche
+document.addEventListener('click', function(event) {
+  if (!searchInput.contains(event.target)) {
+    hideDropdown();
+  }
+});
+
+function showDropdown() {
+  const searchText = searchInput.value.trim().toLowerCase();
+  searchDropdown.innerHTML = '';
+
+  // Affichage des termes récents
+  recentSearchTerms.filter(term => term.toLowerCase().includes(searchText)).slice(0, 3).forEach(term => {
+    const option = createOptionElement(term, 'recent.png');
+    option.addEventListener('click', function() {
+      searchInput.value = term;
+      hideDropdown();
+    });
+    searchDropdown.appendChild(option);
+  });
+
+  // Affichage des suggestions par défaut
+  searchTerms.filter(term => term.toLowerCase().includes(searchText)).slice(0, 4).forEach(term => {
+    const option = createOptionElement(term, 'loupe.png');
+    option.addEventListener('click', function() {
+      searchInput.value = term;
+      hideDropdown();
+    });
+    searchDropdown.appendChild(option);
+  });
+
+  if (searchDropdown.children.length === 0) {
+    hideDropdown()
+  }
+
+  searchDropdown.style.display = 'block';
+}
+
+function createOptionElement(term, icon) {
+  const option = document.createElement('div');
+  option.classList.add('search-option');
+  option.innerHTML = `<img src="Res/${icon}" class="icon" alt="Icon">${term}`;
+  return option;
+}
+
+function hideDropdown() {
+  searchDropdown.innerHTML = '';
+  searchDropdown.style.display = 'none';
+}
+function addRecentSearch(term) {
+  const recentSearches = JSON.parse(localStorage.getItem('recentSearchTerms')) || [];
+  // Vérifie si le terme est déjà présent dans les recherches récentes
+  if (!recentSearches.includes(term)) {
+    recentSearches.unshift(term); // Ajoute le terme en haut de la liste pour qu'il soit le plus récent
+    // Limite le nombre de termes récents à 100
+    if (recentSearches.length > 100) {
+      recentSearches.pop(); // Retire le terme le plus ancien s'il y en a plus de 100
+    }
+    localStorage.setItem('recentSearchTerms', JSON.stringify(recentSearches));
+  }
+}
+searchDropdown.addEventListener('click', function(event) {
+  const clickedTerm = event.target.textContent;
+  searchInput.value = clickedTerm; // Remplace le texte dans la barre de recherche par le terme cliqué
+  hideDropdown();
+  startSearch(); // Lance la recherche
+});
+//------------------------------------------------------------------------------------------
+  function redirectToService(url) {
+    window.location.href = url;
+}
   if (window.matchMedia("(max-width: 600px)").matches) {
   document.getElementById("imaglogo").src = "Res/logo-co-script-solo.png";
 }
@@ -205,6 +432,7 @@ function startSearch() {
     const newUrl = window.location.origin + window.location.pathname + '?search=' + encodeURIComponent(searchInput);
     window.history.pushState({path: newUrl}, '', newUrl);
     scrollToTop();
+    document.title = searchInput + ' | Co-script';
     showSearchResults(searchInput);
   }
 }
@@ -214,6 +442,7 @@ function scrollToTop() {
     behavior: 'smooth'
   });
 }
+
 
 function addSearchInfoBox(title) {
   const info = searchCodeInfoByTitle(title);
@@ -244,79 +473,119 @@ function searchCodeInfoByTitle(title) {
   return foundInfo;
 }
 
-function showSearchResults(query, page = 1, resultsPerPage = 20) {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = '';
 
-  const filteredResults = jsonData.filter(code => {
-    const title = code.title.toLowerCase();
-    const description = code.description.toLowerCase();
-    return title.includes(query.toLowerCase()) || description.includes(query.toLowerCase());
-  });
-  
-  const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
-  const startIndex = (page - 1) * resultsPerPage;
-  const endIndex = startIndex + resultsPerPage;
-  const resultsToShow = filteredResults.slice(startIndex, endIndex);
+function showSearchResults(query, page = 1, resultsPerPage = 10) {
+    const normalizedQuery = normalizeText(query);
 
-  if (resultsToShow.length === 0) {
-    resultsContainer.innerHTML = 'Aucun résultat trouvé.';
-    return;
-  }
+    const scoredResults = jsonData.map(code => {
+        const titleScore = calculateScore(normalizeText(code.title), normalizedQuery);
+        const descriptionScore = calculateScore(normalizeText(code.description), normalizedQuery);
+        const totalScore = titleScore + descriptionScore; // Vous pouvez ajuster cela en fonction de vos critères
 
-  const resultCountText = document.createElement('div');
-  resultCountText.classList.add('result-count');
-  resultCountText.textContent = `Nombre de résultats : ${filteredResults.length}`;
-  resultsContainer.appendChild(resultCountText);
-  const searchInfoBox = addSearchInfoBox(query);
-  if (searchInfoBox) {
-    resultsContainer.appendChild(searchInfoBox);
-  }
-  const codeItemsContainer = document.createElement('div');
-  codeItemsContainer.classList.add('code-items-container');
-
-  resultsToShow.forEach(code => {
-    const codeItem = document.createElement('div');
-    codeItem.classList.add('code-item');
-    
-    const title = document.createElement('h3');
-    title.textContent = code.title;
-    title.addEventListener('click', function() {
-      codeBlock.style.display = codeBlock.style.display === 'none' ? 'block' : 'none';
+        return { code, score: totalScore };
     });
-    
-    const description = document.createElement('p');
-    description.textContent = code.description;
-    
-    const codeBlock = document.createElement('pre');
-    codeBlock.innerHTML = `<code>${code.code}</code>`;
-    codeBlock.style.display = 'none';
-    
-    codeItem.appendChild(title);
-    codeItem.appendChild(description);
-    codeItem.appendChild(codeBlock);
-    
-    codeItemsContainer.appendChild(codeItem);
-  });
-  resultsContainer.appendChild(codeItemsContainer);
 
-  // Ajout des boutons de pagination si nécessaire
-  if (totalPages > 1) {
-    const paginationContainer = document.createElement('div');
-    paginationContainer.classList.add('pagination');
+    // Trier les résultats par ordre décroissant de score
+    scoredResults.sort((a, b) => b.score - a.score);
 
-    for (let i = 1; i <= totalPages; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.addEventListener('click', function() {
-        showSearchResults(query, i, resultsPerPage);
-        scrollToTop();
-      });
-      paginationContainer.appendChild(pageButton);
+    const filteredResults = scoredResults.filter(scoredResult => scoredResult.score > 0).map(scoredResult => scoredResult.code);
+
+    // Afficher les résultats paginés
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = '';
+
+    const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
+    const startIndex = (page - 1) * resultsPerPage;
+    const endIndex = startIndex + resultsPerPage;
+    const resultsToShow = filteredResults.slice(startIndex, endIndex);
+
+    if (resultsToShow.length === 0) {
+        resultsContainer.innerHTML = `<p class="no-results">Aucun résultat trouvé :</p>
+        <ul class="suggestions">
+            <li>Vérifiez l’orthographe des termes de recherche</li>
+            <li>Essayez d’autres mots</li>
+            <li>Utilisez des mots clés plus généraux</li>
+        </ul>`;
+        return;
     }
 
-    resultsContainer.appendChild(paginationContainer);
-  }
+    const resultCountText = document.createElement('div');
+    resultCountText.classList.add('result-count');
+    resultCountText.textContent = `Nombre de résultats : ${filteredResults.length}`;
+    resultsContainer.appendChild(resultCountText);
+    const searchInfoBox = addSearchInfoBox(query);
+    if (searchInfoBox) {
+      resultsContainer.appendChild(searchInfoBox);
+    }
+    addRecentSearch(query);
+    const codeItemsContainer = document.createElement('div');
+    codeItemsContainer.classList.add('code-items-container');
+
+    resultsToShow.forEach(code => {
+        const codeItem = document.createElement('div');
+        codeItem.classList.add('code-item');
+
+        const title = document.createElement('h3');
+        title.textContent = code.title;
+        title.addEventListener('click', function() {
+            toggleCodeVisibility(codeBlock, copyButton, editButton);
+        });
+
+        const sourceLink = document.createElement('a');
+        sourceLink.textContent = code.sources; // Texte du lien
+        sourceLink.href = code.linksource; // URL du lien
+        sourceLink.target = "_blank"; // Ouvre le lien dans une nouvelle fenêtre/tab
+
+        const description = document.createElement('p');
+        description.textContent = code.description;
+
+        const codeBlock = document.createElement('pre');
+        codeBlock.innerHTML = `<code>${code.code}</code>`;
+        codeBlock.style.display = 'none';
+
+        const copyButton = document.createElement('button');
+        copyButton.textContent = 'Copier';
+        copyButton.addEventListener('click', function() {
+            copyToClipboard(code.code);
+        });
+        copyButton.style.display = 'none';
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Editer sur DeskCode';
+        editButton.addEventListener('click', function() {
+            redirectToDeskCode(code.code);
+        });
+        editButton.style.display = 'none';
+
+        codeItem.appendChild(title);
+        codeItem.appendChild(sourceLink);
+        codeItem.appendChild(description);
+        codeItem.appendChild(codeBlock);
+        codeItem.appendChild(copyButton);
+        codeItem.appendChild(editButton);
+
+        codeItemsContainer.appendChild(codeItem);
+    });
+
+    resultsContainer.appendChild(codeItemsContainer);
+
+    // Ajout des boutons de pagination si nécessaire
+    if (totalPages > 1) {
+        const paginationContainer = document.createElement('div');
+        paginationContainer.classList.add('pagination');
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.addEventListener('click', function() {
+                showSearchResults(query, i, resultsPerPage);
+                scrollToTop();
+            });
+            paginationContainer.appendChild(pageButton);
+        }
+
+        resultsContainer.appendChild(paginationContainer);
+    }
 }
 
 window.onload = function() {
@@ -327,6 +596,60 @@ window.onload = function() {
     startSearch();
   }
 };
+
+function toggleCodeVisibility(codeBlock, copyButton, editButton) {
+    if (codeBlock.style.display === 'none') {
+        codeBlock.style.display = 'block';
+        copyButton.style.display = 'inline-block';
+        editButton.style.display = 'inline-block';
+    } else {
+        codeBlock.style.display = 'none';
+        copyButton.style.display = 'none';
+        editButton.style.display = 'none';
+    }
+}
+function copyToClipboard(code) {
+    const textarea = document.createElement('textarea');
+    textarea.value = code;
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+}
+
+function redirectToDeskCode(code) {
+    // Encodage du code pour l'URL
+    const encodedCode = encodeURIComponent(code);
+    
+    // Redirection vers la page DeskCode avec le code comme paramètre dans l'URL
+    window.location.href = `https://live-prism.web.app/DeskCode.html?code=${encodedCode}`;
+}
+function normalizeText(text) {
+    return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function calculateScore(text, query) {
+    // Diviser le texte en mots
+    const words = text.split(/\s+/);
+    // Diviser la requête en mots
+    const queryWords = query.split(/\s+/);
+    
+    // Initialiser le score à 0
+    let score = 0;
+
+    // Pour chaque mot de la requête
+    queryWords.forEach(queryWord => {
+        // Vérifier s'il correspond à un mot dans le texte
+        words.forEach(word => {
+            if (word.includes(queryWord)) {
+                // Si correspondance, augmenter le score
+                score += 1;
+            }
+        });
+    });
+
+    return score;
+}
 </script>
 </body>
 </html>
