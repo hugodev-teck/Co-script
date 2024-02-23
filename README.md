@@ -5,3 +5,6 @@ Co-script est un navigateur de recherche de code qui peut être éxécuté en lo
 
 > [!CAUTION]
 > La base de données de ce navigateur est encore petite, mais elle est vouée à s'agrandir avec le temps.
+
+> [!WARNING]
+> La base de données qui est sur github est réduite par rapport a la base de donnée réel (faute de grandeur)
